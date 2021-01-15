@@ -5,7 +5,6 @@ const togglePopups = () => {
 		giftForm = document.getElementById('gift'),
 		fixedGift = document.querySelector('.fixed-gift');
 
-
 	document.addEventListener('click', event => {
 		const target = event.target;
 
@@ -13,7 +12,8 @@ const togglePopups = () => {
 			freeVisitForm.style.display = 'block';
 		}
 
-		if (target.matches('.callback-btn')) {
+		if (target.matches('.callback-btn') &&
+		!target.closest('#footer_form')) {
 			callbackForm.style.display = 'block';
 		}
 
@@ -22,11 +22,10 @@ const togglePopups = () => {
 			fixedGift.remove();
 		}
 
-		if (target.matches('.overlay')) {
-			target.closest('.popup').style.display = 'none';
-		}
+		if (target.matches('.overlay') ||
+			target.matches('button.close-btn') ||
+			target.closest('.close-form')) {
 
-		if (target.closest('.close-form')) {
 			target.closest('.popup').style.display = 'none';
 		}
 
