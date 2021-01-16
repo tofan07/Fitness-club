@@ -1,6 +1,5 @@
 const gallerySlider = () => {
-	const
-		slider = document.querySelector('.gallery-slider'),
+	const slider = document.querySelector('.gallery-slider'),
 		slide = slider.querySelectorAll('.slide');
 
 	let currentSlide = 0,
@@ -207,6 +206,7 @@ const gallerySlider = () => {
 		}
 	});
 
+	slide[0].classList.add('slide-active');
 	startSlide(3000);
 };
 

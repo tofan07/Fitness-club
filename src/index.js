@@ -6,27 +6,33 @@ import sendForms from './modules/sendForms.js';
 import smoothScroll from './modules/smoothScroll.js';
 import phoneMask from './modules/phoneMask.js';
 import gallerySlider from './modules/gallerySlider.js';
+import calc from './modules/calculator.js';
 
 // Burger menu
 burgerMenu();
 
-// dropdown menu
+// toggle all popups
 togglePopups();
 
 // Head slider
 headSlider();
 
-// services slider
+// slider in services section
 servicesSlider();
 
-// send forms
+// send all forms
 sendForms();
 
 // smooth Scroll
 smoothScroll();
 
+// mask for phone input
 phoneMask();
 
+// slider in gallery section
 gallerySlider();
+
+// calculator
+calc();
 
 

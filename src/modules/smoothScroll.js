@@ -3,7 +3,7 @@ const smoothScroll = () => {
 	document.addEventListener('click', event => {
 		const target = event.target;
 
-		if (target.closest('nav.top-menu')) {
+		if (target.closest('nav')) {
 			if (target.matches('a')) {
 				event.preventDefault();
 				const targetId = target.getAttribute('href');
@@ -25,8 +25,11 @@ const smoothScroll = () => {
 
 	window.addEventListener('scroll', () => {
 		const toTop = document.getElementById('totop');
+
 		toTop.style.display = 'none';
+
 		if (document.documentElement.scrollTop >= 740) { toTop.style.display = 'block'; }
+
 	});
 };
 

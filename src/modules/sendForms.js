@@ -30,6 +30,9 @@ const sendForms = () => {
 			.invalid::placeholder {
 				color: tomato;
 			}
+			.invalid {
+				color: tomato;
+			}
 		`;
 		document.head.append(style);
 	};
@@ -54,15 +57,6 @@ const sendForms = () => {
 
 			item.append(err);
 		});
-
-		// inputName.forEach(item => {
-		// 	const err = document.createElement('label');
-
-		// 	err.classList.add('name-error');
-		// 	err.style.color = 'tomato';
-		// 	item.insertAdjacentElement('afterend', err);
-		// });
-
 	};
 
 	createError();
@@ -71,9 +65,31 @@ const sendForms = () => {
 		form.querySelector('button[type=submit]').addEventListener('click', event => {
 			const inputName = form.querySelector('input[name=name]'),
 				inputCheckbox = form.querySelector('input[type=checkbox]'),
-				inputPhone = form.querySelector('input[name=phone]');
+				inputPhone = form.querySelector('input[name=phone]'),
+				inputsClub = form.querySelectorAll('input[type=radio]');
 
 			if (form.id === 'footer_form') {
+				let isChecked = 0;
+				inputsClub.forEach(item => {
+					if (!item.checked) {
+						isChecked++;
+					}
+				});
+
+				if (isChecked === 2) {
+					event.preventDefault();
+					if (!form.querySelector('.required-error')) {
+						const err = document.createElement('div');
+						err.classList.add('required-error');
+						err.textContent = 'Выберите клуб';
+						err.style.color = 'tomato';
+						form.querySelector('.choose-club').append(err);
+					}
+				} else {
+					if (form.querySelector('.required-error')) {
+						form.querySelector('.required-error').remove();
+					}
+				}
 				return;
 			}
 
@@ -88,6 +104,8 @@ const sendForms = () => {
 			if (inputName.value.trim() === '') {
 				inputName.placeholder = 'Имя обязательно';
 				inputName.classList.add('invalid');
+			} else if (inputName.value.length <= 2) {
+				inputName.classList.add('invalid');
 			} else {
 				inputName.placeholder = 'Ваше имя...';
 				inputName.classList.remove('invalid');
@@ -100,6 +118,7 @@ const sendForms = () => {
 				inputPhone.placeholder = 'Ваше номер телефона...';
 				inputPhone.classList.remove('invalid');
 			}
+
 		});
 	});
 
@@ -124,9 +143,12 @@ const sendForms = () => {
 			.then(target.reset())
 			.catch(showError)
 			.finally(() => {
-				target.closest('.popup').style.display = 'none';
-			});
+				if (target.closest('.popup')) {
+					target.closest('.popup').style.display = 'none';
 
+				}
+
+			});
 	});
 
 	const showSuccess = response => {
