@@ -1,5 +1,9 @@
 /* eslint-disable strict */
 const smoothScroll = () => {
+	const toTop = document.getElementById('totop');
+
+	toTop.style.display = 'none';
+
 	document.addEventListener('click', event => {
 		const target = event.target;
 
@@ -24,11 +28,11 @@ const smoothScroll = () => {
 	});
 
 	window.addEventListener('scroll', () => {
-		const toTop = document.getElementById('totop');
-
-		toTop.style.display = 'none';
-
-		if (document.documentElement.scrollTop >= 740) { toTop.style.display = 'block'; }
+		if (document.documentElement.scrollTop >= 740) {
+			toTop.style.display = 'block';
+		} else {
+			toTop.style.display = 'none';
+		}
 
 	});
 };
