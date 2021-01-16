@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 const sendForm = () => {
 	const allForms = document.querySelectorAll('form'),
 		personalData = document.querySelectorAll('p.personal-data'),
@@ -19,18 +20,27 @@ const sendForm = () => {
                 <div class='sk-circle sk-circle-12'></div>
             </div>
 		</div>
-        `;
+		`,
+		statusMessage = document.createElement('div'),
+		style = document.createElement('style');
 
-	const statusMessage = document.createElement('div');
+	const applyStyle = () => {
+		style.id = 'forms-style';
+		style.textContent = `
+			.invalid::placeholder {
+				color: tomato;
+			}
+		`;
+		document.head.append(style);
+	};
+
+	applyStyle();
 
 	document.addEventListener('input', event => {
 		let target = event.target;
 		target = target.closest('input');
 		if (target.name === 'name') {
 			target.value = target.value.replace(/[^а-я]/i, '');
-		}
-		if (target.name === 'phone') {
-			target.value = target.value.replace(/[^0-9+-]/, '');
 		}
 	});
 
@@ -44,22 +54,51 @@ const sendForm = () => {
 
 			item.append(err);
 		});
+
+		// inputName.forEach(item => {
+		// 	const err = document.createElement('label');
+
+		// 	err.classList.add('name-error');
+		// 	err.style.color = 'tomato';
+		// 	item.insertAdjacentElement('afterend', err);
+		// });
+
 	};
 
 	createError();
 
 	allForms.forEach(form => {
 		form.querySelector('button[type=submit]').addEventListener('click', event => {
+			const inputName = form.querySelector('input[name=name]'),
+				inputCheckbox = form.querySelector('input[type=checkbox]'),
+				inputPhone = form.querySelector('input[name=phone]');
 
 			if (form.id === 'footer_form') {
 				return;
 			}
-			if (form.querySelector('input[type=checkbox]') &&
-			!form.querySelector('input[type=checkbox]').checked) {
+
+			if (inputCheckbox &&
+			!inputCheckbox.checked) {
 				event.preventDefault();
 				form.querySelector('.required-error').textContent = 'Согласие обязательно';
 			} else {
 				form.querySelector('.required-error').textContent = '';
+			}
+
+			if (inputName.value.trim() === '') {
+				inputName.placeholder = 'Имя обязательно';
+				inputName.classList.add('invalid');
+			} else {
+				inputName.placeholder = 'Ваше имя...';
+				inputName.classList.remove('invalid');
+			}
+
+			if (inputPhone.value.trim() === '') {
+				inputPhone.placeholder = 'Телефон обязателен';
+				inputPhone.classList.add('invalid');
+			} else {
+				inputPhone.placeholder = 'Ваше номер телефона...';
+				inputPhone.classList.remove('invalid');
 			}
 		});
 	});
