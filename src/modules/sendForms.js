@@ -105,6 +105,7 @@ const sendForms = () => {
 				inputName.placeholder = 'Имя обязательно';
 				inputName.classList.add('invalid');
 			} else if (inputName.value.length <= 2) {
+				event.preventDefault();
 				inputName.classList.add('invalid');
 			} else {
 				inputName.placeholder = 'Ваше имя...';
@@ -114,8 +115,11 @@ const sendForms = () => {
 			if (inputPhone.value.trim() === '') {
 				inputPhone.placeholder = 'Телефон обязателен';
 				inputPhone.classList.add('invalid');
+			} else if (inputPhone.value.length < 18) {
+				event.preventDefault();
+				inputPhone.classList.add('invalid');
 			} else {
-				inputPhone.placeholder = 'Ваше номер телефона...';
+				inputPhone.placeholder = 'Ваш номер телефона...';
 				inputPhone.classList.remove('invalid');
 			}
 

@@ -11,21 +11,31 @@ const burgerMenu = () => {
 		menu.style.display = `${displayMenu}`;
 		menuBtn.style.display = `${displayMenuBtn}`;
 
-		if (isMobile) {
-			window.addEventListener('scroll', () => {
-				if (document.documentElement.scrollTop >= 186) {
-					header.style.paddingTop = '60px';
-					menuWrap.style.cssText = `
-						position: fixed;
-						top: 0;
-					`;
-				} else {
-					header.style.paddingTop = '0px';
-					menuWrap.style.cssText = `
-					position: static;
+		const menuSticking = () => {
+			if (document.documentElement.clientWidth >= 768) {
+				header.style.paddingTop = '0px';
+				menuWrap.style.cssText = `
+				position: static;
+			`;
+				return;
+			}
+
+			if (document.documentElement.scrollTop >= 186) {
+				header.style.paddingTop = '60px';
+				menuWrap.style.cssText = `
+					position: fixed;
+					top: 0;
 				`;
-				}
-			});
+			} else {
+				header.style.paddingTop = '0px';
+				menuWrap.style.cssText = `
+				position: static;
+			`;
+			}
+		};
+
+		if (isMobile) {
+			window.addEventListener('scroll', menuSticking);
 		}
 	};
 
