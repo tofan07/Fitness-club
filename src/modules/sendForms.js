@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-const sendForm = () => {
+const sendForms = () => {
 	const allForms = document.querySelectorAll('form'),
 		personalData = document.querySelectorAll('p.personal-data'),
 		thanksPopup = document.getElementById('thanks'),
@@ -162,4 +162,4 @@ const sendForm = () => {
 
 };
 
-export default sendForm;
+export default sendForms;

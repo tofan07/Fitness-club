@@ -1,3 +1,4 @@
+
 const servicesSlider = () => {
 	const slider = document.querySelector('.services-slider'),
 		services = document.getElementById('services'),
@@ -19,12 +20,11 @@ const servicesSlider = () => {
 
 		servicesWrap.append(btnPrev, btnNext);
 
-		return { btnNext, btnPrev };
 	};
+	createBtns();
 
-	const btns = createBtns(),
-		btnNext = btns.btnNext,
-		btnPrev = btns.btnPrev;
+	const btnPrev = servicesWrap.querySelector('.btn-prev'),
+		btnNext = servicesWrap.querySelector('.btn-next');
 
 	const applyStyles = (slideWidth, wrapWidth) => {
 		servicesWrap.style.cssText = `
@@ -46,34 +46,6 @@ const servicesSlider = () => {
 			margin: 0;
 		`;
 		});
-
-		btns.btnNext.style.cssText = `
-			position: absolute;
-			background: #ffd11a url('./images/arrow-right.png') no-repeat center;
-			width: 35px;
-			height: 35px;
-			z-index: 10;
-			top: 133px;
-			right: 0px;
-			border-radius: 50%;
-			border: none;
-			outline: none;
-			cursor: pointer;
-		`;
-
-		btns.btnPrev.style.cssText = `
-			position: absolute;
-			background: #ffd11a url('./images/arrow-left.png') no-repeat center;
-			width: 35px;
-			height: 35px;
-			z-index: 10;
-			top: 133px;
-			left: 0;
-			border-radius: 50%;
-			border: none;
-			outline: none;
-			cursor: pointer;
-		`;
 	};
 
 	const sliderAdaptive = (...mediaQuery) => {
