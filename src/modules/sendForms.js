@@ -135,12 +135,15 @@ const sendForms = () => {
 		target.appendChild(statusMessage);
 		statusMessage.innerHTML = loader;
 
+		const price = target.querySelector('#price-total').textContent;
 		const formData = new FormData(target);
 		const body = {};
 
 		formData.forEach((val, key) => {
 			body[key] = val;
 		});
+
+		body['price'] = price;
 
 		postData(body)
 			.then(showSuccess)
